@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, StyleSheet, FlatList } from 'react-native';
-import { useNavigate } from 'react-router-native'; // Use useNavigate hook for navigation
+import { useNavigate } from 'react-router-native';
 import Pagination from '../Pagination'; 
 import SearchInput from '../SearchInput';
-import axios from 'axios'; // Import Axios
+import axios from 'axios';
 
 const CompetitionsList = () => {
   const [competitions, setCompetitions] = useState([]);
   const [searchName, setSearchName] = useState('');
   const [page, setPage] = useState(1);
   const [links, setLinks] = useState([]);
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetchCompetitions();
@@ -41,11 +41,10 @@ const CompetitionsList = () => {
   };
 
   const handleUpdateClick = (id) => {
-    navigate(`/competitions/${id}/update`); // Navigate to update screen
+    navigate(`/competitions/${id}/update`);
   };
 
   const fetchNextPrevTasks = (link) => {
-    // Parse the URL manually to extract the page parameter
     const params = link.split('?')[1];
     const pageParam = params.split('&').find(param => param.startsWith('page='));
     if (pageParam) {

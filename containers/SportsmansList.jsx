@@ -6,7 +6,7 @@ import SearchInput from '../SearchInput';
 import { useNavigate } from 'react-router-native';
 
 const SportsmanList = () => {
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate();
   const [sportsmans, setSportsmans] = useState([]);
   const [searchName, setSearchName] = useState('');
   const [page, setPage] = useState(1);
@@ -41,13 +41,12 @@ const SportsmanList = () => {
   };
 
   const handleUpdateClick = (id) => {
-    navigate(`/sportsmans/${id}/update`); // Navigate to update screen
+    navigate(`/sportsmans/${id}/update`);
 
   };
 
 
   const fetchNextPrevTasks = (link) => {
-    // Parse the URL manually to extract the page parameter
     const params = link.split('?')[1];
     const pageParam = params.split('&').find(param => param.startsWith('page='));
     if (pageParam) {

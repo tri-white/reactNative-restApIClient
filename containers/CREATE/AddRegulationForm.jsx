@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { useNavigate } from 'react-router-native'; // Use useNavigate hook for navigation
+import { useNavigate } from 'react-router-native';
 
 const AddRegulationForm = () => {
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate();
   const [newRegulation, setNewRegulation] = useState({
     name: '',
     description: '',
@@ -28,7 +28,7 @@ const AddRegulationForm = () => {
         minimal_requirements: '',
         gender: 'male'
       });
-    navigate('/regulations'); // Navigate back to regulations list
+    navigate('/regulations'); 
 
     } catch (error) {
       console.error('Error adding regulation:', error);

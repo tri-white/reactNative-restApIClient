@@ -12,7 +12,6 @@ const UpdateCompetitions = () => {
     prizePool: '',
     sportsType: '100m sprint'
   });
-  const [sportsTypes, setSportsTypes] = useState(['100m sprint', '3km run', 'spear throwing', 'football', 'tennis']);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ const UpdateCompetitions = () => {
         const response = await axios.get(`http://10.0.2.2:8000/api/competitions/${id}`);
         setCompetition({
           ...response.data.data,
-          eventDate: response.data.data.eventDate.replace('.000000Z', '') // Adjust date format as needed
+          eventDate: response.data.data.eventDate.replace('.000000Z', '') 
         });
       } catch (error) {
         console.error('Error fetching competition details:', error);
@@ -35,19 +34,19 @@ const UpdateCompetitions = () => {
     try {
       await axios.put(`http://10.0.2.2:8000/api/competitions/${id}`, {
         name: competition.name,
-        event_date: competition.eventDate, // Adjust property names to match your API
+        event_date: competition.eventDate, 
         event_location: competition.eventLocation,
         prize_pool: competition.prizePool,
         sports_type: competition.sportsType
       });
-      navigate('/competitions'); // Navigate back to the competitions list screen
+      navigate('/competitions'); 
     } catch (error) {
       console.error('Error updating competition:', error);
     }
   };
 
   const handleFormClose = () => {
-    navigate('/competitions'); // Navigate back to the competitions list screen
+    navigate('/competitions');
   };
 
   return (

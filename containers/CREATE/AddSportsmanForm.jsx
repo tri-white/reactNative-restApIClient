@@ -4,7 +4,7 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import { useNavigate } from 'react-router-native';
 
 const AddSportsmanForm = () => {
-  const navigate = useNavigate(); // Navigation hook
+  const navigate = useNavigate();
   const [newSportsman, setNewSportsman] = useState({
     name: '',
     email: '',
@@ -30,7 +30,7 @@ const AddSportsmanForm = () => {
         category: 'tennis',
         sponsor: ''
       });
-      navigate('/sportsmans'); // Navigate back to sportsmans list
+      navigate('/sportsmans');
 
     } catch (error) {
       console.error('Error adding sportsman:', error);
