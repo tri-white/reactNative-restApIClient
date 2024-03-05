@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useNavigate, useParams } from 'react-router-native';
 
 const UpdateRegulationForm = () => {
   const { id } = useParams();
@@ -15,7 +16,7 @@ const UpdateRegulationForm = () => {
   useEffect(() => {
     const fetchRegulationDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/regulations/${id}`);
+        const response = await axios.get(`http://10.0.2.2:8000/api/regulations/${id}`);
         setRegulation(response.data.data);
       } catch (error) {
         console.error('Error fetching regulation details:', error);
@@ -27,7 +28,7 @@ const UpdateRegulationForm = () => {
 
   const handleUpdateRegulation = async () => {
     try {
-      await axios.put(`http://localhost:8000/api/regulations/${id}`, {
+      await axios.put(`http://10.0.2.2:8000/api/regulations/${id}`, {
         name: regulation.name,
         description: regulation.description,
         gender: regulation.gender,
@@ -44,63 +45,60 @@ const UpdateRegulationForm = () => {
   };
   
   return (
-    <div className="update-regulation-form container mt-4">
-      <h2>Оновлення нормативу</h2>
-      <form>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name:</label>
-          <input
-            type="text"
-            id="name"
-            className="form-control"
-            value={regulation.name}
-            onChange={(e) => setRegulation({ ...regulation, name: e.target.value })}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description:</label>
-          <input
-            type="text"
-            id="description"
-            className="form-control"
-            value={regulation.description}
-            onChange={(e) => setRegulation({ ...regulation, description: e.target.value })}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="gender" className="form-label">Gender:</label>
-            <select
-            id="gender"
-            name="gender"
-            className="form-select"
-            value={regulation.gender}
-            onChange={(e) => setRegulation({ ...regulation, gender: e.target.value })}
-            required
-          >
-            <option value="male">Чоловіча</option>
-            <option value="female">Жіноча</option>
-            <option value="unisex">Унісекс</option>
-          </select>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="minimalRequirements" className="form-label">Minimal Requirements:</label>
-          <input
-            type="text"
-            id="minimalRequirements"
-            className="form-control"
-            value={regulation.minimalRequirements}
-            onChange={(e) => setRegulation({ ...regulation, minimalRequirements: e.target.value })}
-          />
-        </div>
-        <button type="button" className="btn btn-primary me-2" onClick={handleUpdateRegulation}>
-          Оновити
-        </button>
-        <button type="button" className="btn btn-secondary" onClick={handleFormClose}>
-          Відміна
-        </button>
-      </form>
-    </div>
+    <View style={styles.container}>
+      <Text style={styles.heading}>Оновлення нормативу</Text>
+      <View style={styles.form}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={regulation.name}
+          onChangeText={(text) => setRegulation({ ...regulation, name: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Description"
+          value={regulation.description}
+          onChangeText={(text) => setRegulation({ ...regulation, description: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Gender"
+          value={regulation.gender}
+          onChangeText={(text) => setRegulation({ ...regulation, gender: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Minimal Requirements"
+          value={regulation.minimalRequirements}
+          onChangeText={(text) => setRegulation({ ...regulation, minimalRequirements: text })}
+        />
+        <Button title="Оновити" onPress={handleUpdateRegulation} />
+        <Button title="Відміна" onPress={handleFormClose} />
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  form: {
+    flex: 1,
+  },
+  input: {
+    marginBottom: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+});
 
 export default UpdateRegulationForm;

@@ -10,6 +10,8 @@ import SportsmanList from './containers/SportsmansList';
 import RegulationsList from './containers/RegulationsList';
 import AddSportsmanForm from './containers/CREATE/AddSportsmanForm';
 import AddRegulationForm from './containers/CREATE/AddRegulationForm';
+import UpdateRegulationForm from './containers/UPDATE/UpdateRegulation';
+import UpdateSportsmanForm from './containers/UPDATE/UpdateSportsman';
 
 const WelcomePage = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'green', padding: 20 }}>
@@ -30,6 +32,8 @@ function App() {
           <Route path="/regulations" element={<RegulationsList />} />
           
           <Route path="/competitions/:id/update" element={<UpdateCompetitions/>} />
+          <Route path="/regulations/:id/update" element={<UpdateRegulationForm/>} />
+          <Route path="/sportsmans/:id/update" element={<UpdateSportsmanForm/>} />
           
           <Route path="/competitions/create" element={<AddCompetitionForm />} />
           <Route path="/sportsmans/create" element={<AddSportsmanForm />} />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Picker } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-native';
 
@@ -12,6 +12,7 @@ const UpdateCompetitions = () => {
     prizePool: '',
     sportsType: '100m sprint'
   });
+  const [sportsTypes, setSportsTypes] = useState(['100m sprint', '3km run', 'spear throwing', 'football', 'tennis']);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -74,22 +75,16 @@ const UpdateCompetitions = () => {
         <TextInput
           style={styles.input}
           placeholder="Призовий фонд ($)"
-          value={competition.prizePool}
+          value={String(competition.prizePool)}
           onChangeText={(text) => setCompetition({ ...competition, prizePool: text })}
         />
-        <Picker
-          selectedValue={competition.sportsType}
+
+        <TextInput
           style={styles.input}
-          onValueChange={(itemValue, itemIndex) =>
-            setCompetition({ ...competition, sportsType: itemValue })
-          }
-        >
-          <Picker.Item label="100m sprint" value="100m sprint" />
-          <Picker.Item label="3km run" value="3km run" />
-          <Picker.Item label="spear throwing" value="spear throwing" />
-          <Picker.Item label="football" value="football" />
-          <Picker.Item label="tennis" value="tennis" />
-        </Picker>
+          placeholder="Вид спорту"
+          value={competition.sportsType}
+          onChangeText={(text) => setCompetition({ ...competition, sportsType: text })}
+        />
         <Button title="Оновити" onPress={handleUpdateCompetition} />
         <Button title="Відміна" onPress={handleFormClose} />
       </View>

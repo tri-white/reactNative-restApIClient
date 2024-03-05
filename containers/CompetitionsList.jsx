@@ -41,7 +41,7 @@ const CompetitionsList = () => {
   };
 
   const handleUpdateClick = (id) => {
-    navigate(`/updateCompetition/${id}`); // Navigate to update screen
+    navigate(`/competitions/${id}/update`); // Navigate to update screen
   };
 
   const fetchNextPrevTasks = (link) => {

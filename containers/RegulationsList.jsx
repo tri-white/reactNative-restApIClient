@@ -41,7 +41,8 @@ const RegulationsList = () => {
   };
 
   const handleUpdateClick = (id) => {
-    navigate('UpdateRegulation', { id }); // Navigate to update screen
+    navigate(`/regulations/${id}/update`); // Navigate to update screen
+
   };
 
   const fetchNextPrevTasks = (link) => {

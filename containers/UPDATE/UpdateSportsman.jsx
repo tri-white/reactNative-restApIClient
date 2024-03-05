@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useNavigate, useParams } from 'react-router-native';
 
 const UpdateSportsmanForm = () => {
   const { id } = useParams();
@@ -16,7 +17,7 @@ const UpdateSportsmanForm = () => {
   useEffect(() => {
     const fetchSportsmanDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/sportsmans/${id}`);
+        const response = await axios.get(`http://10.0.2.2:8000/api/sportsmans/${id}`);
         setSportsman(response.data.data);
       } catch (error) {
         console.error('Error fetching sportsman details:', error);
@@ -28,7 +29,7 @@ const UpdateSportsmanForm = () => {
 
   const handleUpdateSportsman = async () => {
     try {
-      await axios.put(`http://localhost:8000/api/sportsmans/${id}`, {
+      await axios.put(`http://10.0.2.2:8000/api/sportsmans/${id}`, {
         name: sportsman.name,
         email: sportsman.email,
         gender: sportsman.gender,
@@ -46,77 +47,66 @@ const UpdateSportsmanForm = () => {
   };
   
   return (
-    <div className="update-sportsman-form container mt-4">
-      <h2>Оновлення спорстмена</h2>
-      <form>
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name:</label>
-          <input
-            type="text"
-            id="name"
-            className="form-control"
-            value={sportsman.name}
-            onChange={(e) => setSportsman({ ...sportsman, name: e.target.value })}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email:</label>
-          <input
-            type="email"
-            id="email"
-            className="form-control"
-            value={sportsman.email}
-            onChange={(e) => setSportsman({ ...sportsman, email: e.target.value })}
-          />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="gender" className="form-label">Gender:</label>
-
-          <select
-          className="form-select"
-          name="gender"
+    <View style={styles.container}>
+      <Text style={styles.heading}>Оновлення спорстмена</Text>
+      <View style={styles.form}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={sportsman.name}
+          onChangeText={(text) => setSportsman({ ...sportsman, name: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          value={sportsman.email}
+          onChangeText={(text) => setSportsman({ ...sportsman, email: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Gender"
           value={sportsman.gender}
-          onChange={(e) => setSportsman({ ...sportsman, gender: e.target.value })}
-          required
-        >
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="category" className="form-label">Category:</label>
-             <select
-          className="form-select"
-          name="category"
+          onChangeText={(text) => setSportsman({ ...sportsman, gender: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Category"
           value={sportsman.category}
-          onChange={(e) => setSportsman({ ...sportsman, category: e.target.value })}
-          required
-        >
-          <option value="tennis">Tennis</option>
-          <option value="marathon">Marathon</option>
-          <option value="spear throwing">Spear Throwing</option>
-          <option value="athletics">Athletics</option>
-        </select>
-        </div>
-        <div className="mb-3">
-          <label htmlFor="sponsor" className="form-label">Sponsor:</label>
-          <input
-            type="text"
-            id="sponsor"
-            className="form-control"
-            value={sportsman.sponsor}
-            onChange={(e) => setSportsman({ ...sportsman, sponsor: e.target.value })}
-          />
-        </div>
-        <button type="button" className="btn btn-primary me-2" onClick={handleUpdateSportsman}>
-          Оновити
-        </button>
-        <button type="button" className="btn btn-secondary" onClick={handleFormClose}>
-          Відміна
-        </button>
-      </form>
-    </div>
+          onChangeText={(text) => setSportsman({ ...sportsman, category: text })}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Sponsor"
+          value={sportsman.sponsor}
+          onChangeText={(text) => setSportsman({ ...sportsman, sponsor: text })}
+        />
+        <Button title="Оновити" onPress={handleUpdateSportsman} />
+        <Button title="Відміна" onPress={handleFormClose} />
+      </View>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  form: {
+    flex: 1,
+  },
+  input: {
+    marginBottom: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+  },
+});
 
 export default UpdateSportsmanForm;

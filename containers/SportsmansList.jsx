@@ -41,12 +41,10 @@ const SportsmanList = () => {
   };
 
   const handleUpdateClick = (id) => {
-    navigate('UpdateSportsman', { id }); // Navigate to update screen
+    navigate(`/sportsmans/${id}/update`); // Navigate to update screen
+
   };
 
-  const handleViewDetails = (id) => {
-    navigate('ViewSportsman', { id }); // Navigate to view details screen
-  };
 
   const fetchNextPrevTasks = (link) => {
     // Parse the URL manually to extract the page parameter
